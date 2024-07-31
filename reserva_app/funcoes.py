@@ -2,7 +2,9 @@
 # Nome seguido de _ e verbos
 
 from flask import request  
-import csv, CSV
+from CSV import *
+import csv
+
 
 
 cad_usuarios = 'CSV/cadastro-usuario.csv'

@@ -1,7 +1,7 @@
-# definir funcoes
-# nome seguido de underline e verbos
+# Definir Funções
+# Nome seguido de _ e verbos
 
-from flask import request 
+from flask import request  
 import csv, CSV
 
 
@@ -9,12 +9,12 @@ cad_usuarios = 'CSV/cadastro-usuario.csv'
 
 def salvar_cadastro():
     if request.method == 'POST':
-        #pega cada requisição do form
+        # Requisições dos Formulários
         nome = request.form['nome']
         email = request.form['email']
         senha = request.form['senha']
 
-        #escreve os dados de entrada no csv
+        # Registra no CSV
         with open(cad_usuarios, 'a', newline='') as usuarios_cadastros:
             escrever = csv.writer(usuarios_cadastros)
             escrever.writerow([nome, email, senha])

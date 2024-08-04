@@ -1,6 +1,9 @@
 # Reserva App
-
 Aplicação de exemplo para aulas sobre desenvolvimento web backend e criação de multipage applications utilizand Python e Flask.
+
+## Equipe 
+- Mateus Armando Carrara de Mendonça - 313B
+- Thomas Stephan Carmo - 313B
 
 ## Usuários vs. Funcionalidades
 - Administrador

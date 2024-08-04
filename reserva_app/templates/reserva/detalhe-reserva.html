@@ -21,7 +21,6 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="/reservas">Reservas</a>
-            <!-- <a class="nav-link active" aria-current="page" href="/templates/reservas.html">Minhas Reservas</a> -->
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="/reservar-sala">Reservar Sala</a>
@@ -47,11 +46,14 @@
   <div class="container">
     <div class="row mt-4">
       <div class="col">
-        <h1>Reserva 832</h1>
-        <p><b>Sala:</b> 3</p>
-        <p><b>Início:</b> 30/04/2024 - 14:00</p>
-        <p><b>Fim:</b> 30/04/2024 - 16:30</p>
-        <p>Reservado para Nome do Professor</p>
+
+        <h1>Reserva Feita</h1>
+
+        <p>Sala Reservada: {{ reserva.sala }}</p>
+        <p>Começo: {{ reserva.comeco }}</p>
+        <p>Fim: {{ reserva.fim }}</p>
+        <p>Reservado para: {{ cadastro.}} </p>
+
       </div>
     </div>
     <div class="row">

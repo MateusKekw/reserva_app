@@ -1,51 +1,65 @@
-from flask import Flask, render_template, Request
+from flask import *
 from CSV import *
 from reserva_app.funcoes import *
 
 app = Flask (__name__)
 
 # Definição de Rotas
-# Nome seguido de - // igual o arquivo.html!
+# Nome seguido de - // igual o arquivo.html
 
 # login
 @app.route('/')
 def login_pag():
     return render_template('login.html') 
 
-# cadastro usuario
+# Cadastros de usuario
 @app.route('/cadastro')
 def cadastro_pag():
     return render_template('cadastro.html')
 
-# reservar sala
+# Reservar sala
 @app.route('/reservar-sala')
 def reservar_sala_pag():
-    return render_template ('reservar-sala.html')
+    return render_template ('reservar-sala.html', salas=ler_csv())
 
-# reservas
+# Reservas
 @app.route('/reservas')
 def reservas_pag():
     return render_template ('reservas.html')
 
-# detalhe reserva
+# Detalhes de Reserva
 @app.route('/detalhe-reserva')
 def detalhe_reserva_pag():
     return render_template ('reserva/detalhe-reserva.html')
 
-# cadastrar sala
+# Cadastros de sala
 @app.route('/cadastrar-sala')
 def cadastro_sala_pag():
     return render_template ('cadastrar-sala.html')
 
-# listar sala
-@app.route('/listar-salas')
-def listar_salas_pag():
-    return render_template ('listar-salas.html')
-
-
-# Rotas POST
+# POST (interagir com o CSV)
 
 @app.route('/cadastro', methods=['POST'])
 def cadastro_post():
     salvar_cadastro()
     return render_template('reservas.html')
+
+@app.route('/cadastrar-sala', methods=['POST'])
+def salas_post():
+    salvar_sala()
+    return render_template('listar-salas.html', salas=ler_csv())
+
+@app.route('/reservar-sala', methods=['POST'])
+def reservas_post():
+    reserva = salvar_reserva()
+    return render_template('reserva/detalhe-reserva.html', reserva=reserva)
+
+
+
+# Leitura e exibição dos CSVs
+
+@app.route('/listar-salas')
+def listar_salas():
+    salas = ler_csv()
+    print(f"Salas listadas: {salas}")  
+    return render_template('listar-salas.html', salas=salas)

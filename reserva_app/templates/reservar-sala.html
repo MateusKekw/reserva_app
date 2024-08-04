@@ -21,7 +21,6 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="/reservas">Reservas</a>
-            <!-- <a class="nav-link active" aria-current="page" href="/templates/reservas.html">Minhas Reservas</a> -->
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="/reservar-sala">Reservar Sala</a>
@@ -53,18 +52,20 @@
     </div>
     <div>
       <div class="col">
-        <form action="/templates/reserva/detalhe-reserva.html">
+        <form action="/reservar-sala" method="post">
           <div class="mb-3">
             <label for="sala" class="form-label">Sala</label>
             <select class="form-select" id="sala" name="sala">
               <option selected>Selecione a sala</option>
-              <option value="1">Sala 1</option>
-              <option value="2">Sala 2</option>
-              <option value="3">Sala 3</option>
+              
+              {%for s in salas%}
+                <option value="{{ s.descricao }}">{{ s.descricao }}</option>
+              {% endfor %}
+
             </select>
           </div>
           <div class="mb-3">
-            <label for="inicio" class="form-label">Data e Hora Início</label>
+            <label for="inicio" class="form-label">Data e Hora Começo</label>
             <input type="datetime-local" class="form-control" name="inicio" id="inicio">
           </div>
           <div class="mb-3">

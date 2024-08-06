@@ -51,8 +51,7 @@ def salas_post():
 
 @app.route('/reservar-sala', methods=['POST'])
 def reservas_post():
-    reserva = salvar_reserva()
-    return render_template('reserva/detalhe-reserva.html', reserva=reserva)
+    return render_template('reserva/detalhe-reserva.html',reserva =  salvar_reserva() )
 
 
 

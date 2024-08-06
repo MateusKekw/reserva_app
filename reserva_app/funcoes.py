@@ -1,7 +1,7 @@
 # Definir Funções
 # Nome seguido de _ e verbos
 
-from flask import *  
+from flask import request, render_template, Flask
 from CSV import *
 import csv
 
@@ -27,32 +27,31 @@ def salvar_cadastro():
 def salvar_sala():
     if request.method == 'POST':
         # Forms
-        capacidade = request.form['capacidade']
         tipo = request.form['tipo']
+        capacidade = request.form['capacidade']
         descricao = request.form['descricao']
 
         # Bota no CSV
         with open(cad_sala, 'a', newline='') as salas_cadastros:
             escrever = csv.writer(salas_cadastros)
-            escrever.writerow([capacidade, tipo, descricao])
+            escrever.writerow([tipo, capacidade, descricao])
 
 def salvar_reserva():
-    if request.method == 'POST':
        # Forms
-        sala = request.form['sala']
-        comeco = request.form['comeco']
-        fim = request.form['fim']
+    sala = request.form['sala']
+    comeco = request.form['comeco']
+    fim = request.form['fim']
 
-        # Bota no CSV       
-        with open(res_sala, 'a', newline='') as reservas_salas:
-            escrever = csv.writer(reservas_salas)
-            escrever.writerow([sala, comeco, fim])
-
-        return {
-            'sala' : sala,
-            'comeco' : comeco,
-            'fim' : fim
-        }
+    # Bota no CSV       
+    with open(res_sala, 'a', newline='') as reservas_salas:
+        escrever = csv.writer(reservas_salas)
+        escrever.writerow([sala, comeco, fim])
+        reserva = {
+                    'sala' : sala,
+                    'comeco' : comeco,
+                    'fim' : fim
+                }
+    return reserva
     
 # Exibição e leitura dos CSVs
 def ler_csv():

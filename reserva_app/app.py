@@ -51,9 +51,16 @@ def salas_post():
 
 @app.route('/reservar-sala', methods=['POST'])
 def reservas_post():
-    return render_template('reserva/detalhe-reserva.html',reserva =  salvar_reserva() )
-
-
+    if request.method == 'POST':
+        # Verifica se os dados enviados na solicitação são válidos
+        if 'sala' in request.form and 'comeco' in request.form and 'fim' in request.form:
+            # Salva a reserva no CSV
+            reserva = salvar_reserva(request.form['sala'], request.form['comeco'], request.form['fim'])
+            return render_template('reserva/detalhe-reserva.html', reserva=reserva)
+        else:
+            return 'Erro: Dados inválidos', 400
+    else:
+        return 'Erro: Solicitação inválida', 400
 
 # Leitura e exibição dos CSVs
 

@@ -54,14 +54,14 @@
         </div>
         <div>
             <div class="col">
-                <form action="/templates/reserva/detalhe-reserva.html">
+                <form action="/cadastrar-sala" method="POST">
                     <div class="mb-3">
                         <label for="tipo" class="form-label">Tipo</label>
                         <select class="form-select" id="tipo" name="tipo">
                             <option selected>Selecione um tipo</option>
-                            <option value="1">Sala de Aula Comum</option>
-                            <option value="2">Laboratorio</option>
-                            <option value="3">Auditorio</option>
+                            <option value="Sala">Sala de Aula</option>
+                            <option value="Lab">Laboratorio</option>
+                            <option value="Auditorio">Auditorio</option>
                         </select>
                     </div>
                     <div class="mb-3">

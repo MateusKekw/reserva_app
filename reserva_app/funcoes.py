@@ -36,7 +36,7 @@ def salvar_sala():
             escrever = csv.writer(salas_cadastros)
             escrever.writerow([tipo, capacidade, descricao])
 
-def salvar_reserva():
+def salvar_reserva(sala, comeco, fim):
        # Forms
     sala = request.form['sala']
     comeco = request.form['comeco']
@@ -63,8 +63,8 @@ def ler_csv():
         for idx, linha in enumerate(leitor, start=1):
             sala = {
                 'id': idx,
-                'capacidade': linha[0],
-                'tipo': linha[1],
+                'tipo': linha[0],
+                'capacidade': linha[1],
                 'descricao': linha[2]
             }
             salas.append(sala)

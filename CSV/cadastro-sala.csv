@@ -1,4 +1,6 @@
-capacidade, tipo, descricao
-25, Sala de Aula, sala de aula comum 
-30, Laboratorio, laboratorio de quimica
-50, Auditorio, auditorio 2
+tipo,capacidade,descricao
+ Sala de aula,25,Sala de aula comum 1
+ Laboratorio,30,Laboratorio de quimica 1
+ Auditorio,50,Auditorio 2
+ Sala de aula,25,Sala de aula comum 2
+ Laboratorio,30,Laboratorio de quimica avançado

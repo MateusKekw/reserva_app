@@ -4,7 +4,10 @@
 from flask import request, render_template, Flask
 from CSV import *
 import csv
+import mysql.connector
 
+def conexao_abrir(host, usuario, senha, banco):
+    return mysql.connector.connect(host=host, user=usuario, password=senha, database=banco)
 
 cad_usuarios = 'CSV/cadastro-usuario.csv'
 cad_sala = 'CSV/cadastro-sala.csv'
@@ -70,3 +73,12 @@ def ler_csv():
             salas.append(sala)
 
     return salas
+
+# insere no MySql (estan me matando)
+def usuarioInserir(con, usuario, senha, nome, email):
+     cursor = con.cursor()
+     sql = "INSERT INTO cliente (usuario, senha, nome, email) VALUES ('%s', '%s', '%s', '%s')"
+     cursor.execute(sql, (usuario, senha, nome, email))
+     con.commit() 
+     cursor.close()
+        

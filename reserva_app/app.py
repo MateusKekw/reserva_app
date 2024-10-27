@@ -1,6 +1,9 @@
 from flask import *
 from CSV import *
 from reserva_app.funcoes import *
+import mysql.connector
+
+abrirConexao = conexao_abrir("127.0.0.1","Mateus","m@tEuS.17","reservas")
 
 app = Flask (__name__)
 

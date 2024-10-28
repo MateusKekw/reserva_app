@@ -40,7 +40,7 @@ def salvar_sala():
             escrever.writerow([tipo, capacidade, descricao])
 
 def salvar_reserva(sala, comeco, fim):
-       # Forms
+    # Forms
     sala = request.form['sala']
     comeco = request.form['comeco']
     fim = request.form['fim']
@@ -74,31 +74,17 @@ def ler_csv():
 
     return salas
 
-# insere no MySql (estan me matando)
-def usuarioInserir(con, usuario, senha, nome, email):
+# insere no MySql
+def usuarioInserir(con, usuario, senha, nome, email):    
+        cursor = con.cursor()
+        sql = "INSERT INTO usuario (Usuario, Senha, Nome, Email) VALUES ('%s', '%s', '%s', '%s')"
+        cursor.execute(sql, (usuario, senha, nome, email))
+        con.commit() 
+        cursor.close()
+            
 
-    # Forms
-    numero = request.form['numero']
-    tipo = request.form['tipo']
-    descricao = request.form['descricao']
-    capacidade = request.form['capacidade']
-
-    cursor = con.cursor()
-    sql = "INSERT INTO usuario (Usuario, Senha, Nome, Email) VALUES ('%s', '%s', '%s', '%s')"
-    cursor.execute(sql, (usuario, senha, nome, email))
-    con.commit() 
-    cursor.close()
-
-
-    # insere no MySql (estan me matando)
+# insere no MySql
 def salaInserir(con, numero, tipo, descricao, capacidade):
-
-    # Forms
-    numero = request.form['numero']
-    tipo = request.form['tipo']
-    descricao = request.form['descricao']
-    capacidade = request.form['capacidade']
-
     cursor = con.cursor()
     sql = "INSERT INTO sala (numero, tipo, descricao, capacidade) VALUES (%s, '%s', '%s', %s)"
     cursor.execute(sql, (numero, tipo, descricao, capacidade))
@@ -118,7 +104,7 @@ def salaListar(con):
 
     cursor.close()
 
-    # insere no MySql (estan me matando)
+    # insere no MySql
 def reservaInserir(con, sala, usuario, inicio, fim):
      
     # Forms

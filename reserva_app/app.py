@@ -1,11 +1,9 @@
 from flask import *
 from CSV import *
 from reserva_app.funcoes import *
-import mysql.connector
 
 conx = conexao_abrir("127.0.0.1","Mateus","m@tEuS.17","reservas")
-
-app = Flask (__name__)
+app=Flask(__name__)
 
 # Definição de Rotas
 # Nome seguido de - // igual o arquivo.html
@@ -23,7 +21,7 @@ def cadastro_pag():
 # Reservar sala
 @app.route('/reservar-sala')
 def reservar_sala_pag():
-    return render_template ('reservar-sala.html', salas=salaListar())
+    return render_template ('reservar-sala.html', salas=salaListar(conx))
 
 # Reservas
 @app.route('/reservas')
@@ -40,17 +38,32 @@ def detalhe_reserva_pag():
 def cadastro_sala_pag():
     return render_template ('cadastrar-sala.html')
 
-# POST (interagir com o CSV)
+# POST (interagir com o MySQL)
 
 @app.route('/cadastro', methods=['POST'])
 def cadastro_post():
-    usuarioInserir
+
+    if request.method =='POST':
+        # Forms
+        usuario = request.form['usuario']
+        senha = request.form['senha']
+        nome = request.form['nome']
+        email = request.form['email']
+
+    usuarioInserir(conx, usuario,senha, nome, email)
     return render_template('reservas.html')
 
 @app.route('/cadastrar-sala', methods=['POST'])
 def salas_post():
-    salaInserir()
-    return render_template('listar-salas.html', salas=salaListar())
+    if request.method == 'POST':
+        # Forms
+        numero = request.form['numero']
+        tipo = request.form['tipo']
+        descricao = request.form['descricao']
+        capacidade = request.form['capacidade']
+        
+    salaInserir(conx, numero, tipo, descricao, capacidade)
+    return render_template('listar-salas.html', salas=salaListar(conx))
 
 @app.route('/reservar-sala', methods=['POST'])
 def reservas_post():
@@ -58,7 +71,7 @@ def reservas_post():
         # Verifica se os dados enviados na solicitação são válidos
         if 'sala' in request.form and 'usuario' in request.form and 'inicio' in request.form and 'fim' in request.form:
             # Salva a reserva no MySQL
-            reserva = reservaInserir(request.form['sala'], request.form['usuario'], request.form['inicio'], request.form['fim'])
+            reserva = reservaInserir(conx, request.form['sala'], request.form['usuario'], request.form['inicio'], request.form['fim'])
             return render_template('reserva/detalhe-reserva.html', reserva=reserva)
         else:
             return 'Erro: Dados inválidos', 400
@@ -69,6 +82,6 @@ def reservas_post():
 # Leitura e exibição dos CSVs
 @app.route('/listar-salas')
 def listar_salas():
-    salas = salaListar()
+    salas = salaListar(conx)
     print(f"Salas listadas: {salas}")  
     return render_template('listar-salas.html', salas=salas)

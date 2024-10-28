@@ -76,9 +76,73 @@ def ler_csv():
 
 # insere no MySql (estan me matando)
 def usuarioInserir(con, usuario, senha, nome, email):
-     cursor = con.cursor()
-     sql = "INSERT INTO cliente (usuario, senha, nome, email) VALUES ('%s', '%s', '%s', '%s')"
-     cursor.execute(sql, (usuario, senha, nome, email))
-     con.commit() 
-     cursor.close()
-        
+
+    # Forms
+    numero = request.form['numero']
+    tipo = request.form['tipo']
+    descricao = request.form['descricao']
+    capacidade = request.form['capacidade']
+
+    cursor = con.cursor()
+    sql = "INSERT INTO usuario (Usuario, Senha, Nome, Email) VALUES ('%s', '%s', '%s', '%s')"
+    cursor.execute(sql, (usuario, senha, nome, email))
+    con.commit() 
+    cursor.close()
+
+
+    # insere no MySql (estan me matando)
+def salaInserir(con, numero, tipo, descricao, capacidade):
+
+    # Forms
+    numero = request.form['numero']
+    tipo = request.form['tipo']
+    descricao = request.form['descricao']
+    capacidade = request.form['capacidade']
+
+    cursor = con.cursor()
+    sql = "INSERT INTO sala (numero, tipo, descricao, capacidade) VALUES (%s, '%s', '%s', %s)"
+    cursor.execute(sql, (numero, tipo, descricao, capacidade))
+    con.commit() 
+    cursor.close()
+
+# lista os atributos        
+def salaListar(con):
+    cursor = con.cursor()
+    sql = "SELECT * FROM sala"
+    # Criando o cursor com a opção de retorno como dicionário   
+    cursor = con.cursor(dictionary=True)
+    cursor.execute(sql)
+
+    for (registro) in cursor:
+        print(registro['Id_room'] + " - " + registro['numero'] + " - "+ registro['tipo'] + " - "+ registro['descricao']+ " - " + registro['capacidade'])
+
+    cursor.close()
+
+    # insere no MySql (estan me matando)
+def reservaInserir(con, sala, usuario, inicio, fim):
+     
+    # Forms
+    sala = request.form['sala']
+    usuario = request.form['usuario']
+    inicio = request.form['inicio']
+    fim = request.form['fim']
+
+    # Coloca no MySql
+    cursor = con.cursor()
+    sql = "INSERT INTO reserva (Id_room, Id_user, inicio, fim) VALUES (%s, %s, %s, %s)"
+    cursor.execute(sql, (sala, usuario, inicio, fim))
+    con.commit() 
+    cursor.close()
+
+# lista os atributos        
+def reservaListar(con):
+    cursor = con.cursor()
+    sql = "SELECT * FROM reserva"
+    # Criando o cursor com a opção de retorno como dicionário   
+    cursor = con.cursor(dictionary=True)
+    cursor.execute(sql)
+
+    for (registro) in cursor:
+        print(registro['Id_reserva'] + " - " + registro['id_room'] + " - "+ registro['id_user'] + " - "+ registro['inicio']+ " - " + registro['fim'])
+
+    cursor.close()

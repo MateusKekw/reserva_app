@@ -1,6 +1,6 @@
-tipo,capacidade,descricao
- Sala de aula,25,Sala de aula comum 1
- Laboratorio,30,Laboratorio de quimica 1
- Auditorio,50,Auditorio 2
- Sala de aula,25,Sala de aula comum 2
- Laboratorio,30,Laboratorio de quimica avançado
+numero,tipo,capacidade,descricao
+19, Sala de aula,25,Sala de aula comum 1
+24, Laboratorio,30,Laboratorio de quimica 1
+63, Auditorio,50,Auditorio 2
+42, Sala de aula,25,Sala de aula comum 2
+54, Laboratorio,30,Laboratorio de quimica avançado

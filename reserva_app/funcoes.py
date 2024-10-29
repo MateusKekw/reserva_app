@@ -77,17 +77,16 @@ def ler_csv():
 # insere no MySql
 def usuarioInserir(con, usuario, senha, nome, email):    
         cursor = con.cursor()
-        sql = "INSERT INTO usuario (Usuario, Senha, Nome, Email) VALUES ('%s', '%s', '%s', '%s')"
-        cursor.execute(sql, (usuario, senha, nome, email))
+        cursor.execute("INSERT INTO usuario (username, senha, nome, email) VALUES (%s, %s, %s, %s)", (usuario, senha, nome, email))
         con.commit() 
         cursor.close()
             
 
 # insere no MySql
-def salaInserir(con, numero, tipo, descricao, capacidade):
+def salaInserir(con, tipo, descricao, capacidade):
     cursor = con.cursor()
-    sql = "INSERT INTO sala (numero, tipo, descricao, capacidade) VALUES (%s, '%s', '%s', %s)"
-    cursor.execute(sql, (numero, tipo, descricao, capacidade))
+    sql = "INSERT INTO sala (tipo, descricao, capacidade) VALUES (%s, %s, %s)"
+    cursor.execute(sql, (tipo, descricao, capacidade))
     con.commit() 
     cursor.close()
 
@@ -98,11 +97,12 @@ def salaListar(con):
     # Criando o cursor com a opção de retorno como dicionário   
     cursor = con.cursor(dictionary=True)
     cursor.execute(sql)
-
-    for (registro) in cursor:
-        print(registro['Id_room'] + " - " + registro['numero'] + " - "+ registro['tipo'] + " - "+ registro['descricao']+ " - " + registro['capacidade'])
-
+    salas = []
+    for registro in cursor:
+        print(str(registro['Id_room']) + " - " + registro['tipo'] + " - "  + registro['descricao'] + " - " + str(registro['capacidade']))
+        salas.append(registro)
     cursor.close()
+    return salas
 
     # insere no MySql
 def reservaInserir(con, sala, usuario, inicio, fim):

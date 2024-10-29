@@ -2,7 +2,7 @@ from flask import *
 from CSV import *
 from reserva_app.funcoes import *
 
-conx = conexao_abrir("127.0.0.1","Mateus","m@tEuS.17","reservas")
+conx = conexao_abrir("127.0.0.1","estudante1","1234","reservas")
 app=Flask(__name__)
 
 # Definição de Rotas
@@ -36,7 +36,7 @@ def detalhe_reserva_pag():
 # Cadastros de sala
 @app.route('/cadastrar-sala')
 def cadastro_sala_pag():
-    return render_template ('cadastrar-sala.html')
+    return render_template ('cadastrar-sala.html', salas = salaListar(conx))
 
 # POST (interagir com o MySQL)
 
@@ -57,12 +57,11 @@ def cadastro_post():
 def salas_post():
     if request.method == 'POST':
         # Forms
-        numero = request.form['numero']
         tipo = request.form['tipo']
         descricao = request.form['descricao']
         capacidade = request.form['capacidade']
         
-    salaInserir(conx, numero, tipo, descricao, capacidade)
+    salaInserir(conx, tipo, descricao, capacidade)
     return render_template('listar-salas.html', salas=salaListar(conx))
 
 @app.route('/reservar-sala', methods=['POST'])
